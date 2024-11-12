@@ -60,8 +60,6 @@ class ImageAnalyzerViewModel @Inject constructor(
     private fun handleImageSelection(imageUri: Uri) {
         viewModelScope.launch {
             try {
-                _uiState.update { it.copy(isLoading = true) }
-
                 val file = createTempFile()
 
                 context.contentResolver.openInputStream(imageUri)?.use { inputStream ->
@@ -72,7 +70,7 @@ class ImageAnalyzerViewModel @Inject constructor(
                 currentImageFile = file
                 analyzeImage(file)
 
-                _uiState.update { it.copy(selectedImageUri = imageUri, isLoading = false) }
+                _uiState.update { it.copy(selectedImageUri = imageUri,) }
             } catch (e: IOException) {
                 handleError("Failed to process the selected image: ${e.localizedMessage}")
             } catch (e: Exception) {

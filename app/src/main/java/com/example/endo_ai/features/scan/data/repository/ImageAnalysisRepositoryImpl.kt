@@ -2,6 +2,7 @@ package com.example.endo_ai.features.scan.data.repository
 
 import com.example.endo_ai.core.util.Resource
 import com.example.endo_ai.di.IoDispatcher
+import com.example.endo_ai.features.scan.data.mapper.toAnalysisResult
 import com.example.endo_ai.features.scan.data.remote.ApiService
 import com.example.endo_ai.features.scan.domain.model.AnalysisData
 import com.example.endo_ai.features.scan.domain.model.AnalysisResult
@@ -31,7 +32,7 @@ class ImageAnalysisRepositoryImpl @Inject constructor(
 
         try {
             val requestFile = MultipartBody.Part.createFormData(
-                "image",
+                "file",
                 imageFile.name,
                 imageFile.asRequestBody("image/*".toMediaType())
             )
@@ -39,9 +40,10 @@ class ImageAnalysisRepositoryImpl @Inject constructor(
             when {
                 response.isSuccessful -> {
                     response.body()?.let { apiResponse ->
+
                         try {
-                            val data = Json.decodeFromString<AnalysisData>(apiResponse.toString())
-                            emit(Resource.Success(data.result))
+                           val analysisResult = apiResponse.results
+                            emit(Resource.Success(analysisResult))
                         } catch (e: SerializationException) {
                             emit(Resource.Error("Failed to parse analysis result: ${e.message}"))
                         }
@@ -61,7 +63,6 @@ class ImageAnalysisRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             emit(Resource.Error(e.message ?: "Unknown error occurred"))
         }
-        emit(Resource.Loading(false))
     }.flowOn(ioDispatcher)
 }
 
