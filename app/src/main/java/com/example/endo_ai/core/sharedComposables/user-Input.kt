@@ -118,7 +118,11 @@ fun AuthButton(
         )
     ) {
         if (isLoading) {
-            LoadingState()
+            CircularProgressIndicator(
+                modifier = Modifier.size(24.dp),
+                color = Color.White,
+                strokeWidth = 2.dp
+            )
         } else {
             Text(
                 text = text,

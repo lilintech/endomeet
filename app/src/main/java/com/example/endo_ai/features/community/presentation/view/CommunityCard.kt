@@ -1,4 +1,4 @@
-package com.example.endo_ai.features.community
+package com.example.endo_ai.features.community.presentation.view
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,18 +16,21 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.People
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.endo_ai.features.community.domain.model.Community
 import com.example.endo_ai.navigation.Screens
 
 @Composable
 fun CommunityCard(
     modifier: Modifier = Modifier,
-    item: CommunityData,
+    communityData: Community,
     navController: NavController
 ) {
     Card(
@@ -37,7 +40,7 @@ fun CommunityCard(
             .height(100.dp)
             .clickable(
                 onClick = {
-                    navController.navigate(Screens.JoinCommunityScreen.createRoute(item.title))
+                    navController.navigate(Screens.JoinCommunityScreen.createRoute(communityData.id))
                 }
             ),
         shape = RoundedCornerShape(15.dp),
@@ -50,8 +53,8 @@ fun CommunityCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = item.icon,
-                contentDescription = "${item.title} icon",
+                imageVector = Icons.Default.People,
+                contentDescription = "${communityData.title} icon",
                 tint = Color(75, 0, 130),
                 modifier = Modifier.size(40.dp)
             )
@@ -60,13 +63,19 @@ fun CommunityCard(
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 Text(
-                    text = item.title,
+                    text = communityData.title,
                     style = MaterialTheme.typography.subtitle1
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = item.description,
+                    text = communityData.description,
                     style = MaterialTheme.typography.caption
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = "Created by ${communityData.creatorName}",
+                    style = MaterialTheme.typography.caption,
+                    color = Color.Gray
                 )
             }
         }

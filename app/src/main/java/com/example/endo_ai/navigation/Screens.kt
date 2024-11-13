@@ -8,7 +8,7 @@ sealed class Screens(
     data object CreateCommunity: Screens("create_community_screen")
     data object ScanDisease: Screens("scan_disease_screen")
     data object JoinCommunityScreen: Screens("join_community_screen/{communityTitle}") {
-        fun createRoute(communityTitle: String) = "join_community_screen/$communityTitle"
+        fun createRoute(communityId: String) = "join_community_screen/$communityId"
     }
 
     object BottomNavScreen {
