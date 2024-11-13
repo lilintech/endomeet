@@ -6,6 +6,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
     id("kotlinx-serialization")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -91,6 +92,11 @@ dependencies {
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.18.0")
     implementation("com.google.accompanist:accompanist-pager:0.18.0")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.18.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
+
+    implementation("com.google.firebase:firebase-firestore-ktx:24.9.1")
 
 
 }

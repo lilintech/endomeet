@@ -1,8 +1,12 @@
 package com.example.endo_ai.di
 
+import com.example.endo_ai.features.auth.data.repository.AuthRepositoryImpl
+import com.example.endo_ai.features.auth.domain.repository.AuthRepository
 import com.example.endo_ai.features.scan.data.remote.ApiService
 import com.example.endo_ai.features.scan.data.repository.ImageAnalysisRepositoryImpl
 import com.example.endo_ai.features.scan.domain.repository.ImageAnalysisRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +27,18 @@ object RepositoryModule {
         return ImageAnalysisRepositoryImpl(
             apiService = apiService,
             ioDispatcher = ioDispatcher
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun bindAuthRepository(
+        firebaseAuth: FirebaseAuth,
+        firestore: FirebaseFirestore
+    ): AuthRepository {
+        return AuthRepositoryImpl(
+            firebaseAuth = firebaseAuth,
+            firestore = firestore
         )
     }
 }

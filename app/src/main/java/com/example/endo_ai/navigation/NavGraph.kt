@@ -10,8 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.endo_ai.features.auth.login.LoginScreen
-import com.example.endo_ai.features.auth.signup.SignUpScreen
+import com.example.endo_ai.features.auth.presentation.view.AuthScreen
 import com.example.endo_ai.features.community.CommunityData
 import com.example.endo_ai.features.community.CommunityScreen
 import com.example.endo_ai.features.community.JoinCommunityScreen
@@ -26,11 +25,16 @@ fun SetUpNavGraph(
     navController: NavHostController
 ) {
     NavHost(
-        startDestination = Screens.LoginScreen.route,
+        startDestination = Screens.AuthScreen.route,
         navController = navController
     ) {
-        composable(route = Screens.LoginScreen.route) { LoginScreen(navController = navController) }
-        composable(route = Screens.SignUpScreen.route) { SignUpScreen(navController = navController) }
+        composable(route = Screens.AuthScreen.route) { AuthScreen(
+            onAuthSuccess = {
+                navController.navigate(Screens.Community.route){
+                    popUpTo(Screens.AuthScreen.route){ inclusive = true }
+                }
+            }
+        ) }
         composable(route = Screens.ScanDisease.route) { ScanDiseaseScreen(navController = navController) }
         composable(route = Screens.Community.route) { CommunityScreen(navController = navController) }
         composable(route = Screens.CreateCommunity.route) { CreateCommunityScreen(navController = navController) }

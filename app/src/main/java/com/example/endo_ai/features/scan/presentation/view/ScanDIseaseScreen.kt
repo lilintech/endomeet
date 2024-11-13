@@ -204,7 +204,7 @@ fun AnalysisResultCard(result: AnalysisResult) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = resultFindings.take(visibleCharacters),
+                text = resultFindings,
                 style = MaterialTheme.typography.body1
             )
             Text(
@@ -216,7 +216,7 @@ fun AnalysisResultCard(result: AnalysisResult) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = resultSummary.take(visibleCharacters),
+                text = resultSummary,
                 style = MaterialTheme.typography.body1
             )
             Text(
@@ -228,7 +228,7 @@ fun AnalysisResultCard(result: AnalysisResult) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = resultRecommendation.take(visibleCharacters),
+                text = resultRecommendation,
                 style = MaterialTheme.typography.body1
             )
 

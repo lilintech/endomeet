@@ -2,6 +2,8 @@ package com.example.endo_ai.di
 
 import com.example.endo_ai.features.scan.data.remote.ApiService
 import com.example.endo_ai.features.scan.data.remote.ApiService.Companion.BASE_URL
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -51,5 +53,11 @@ object AppModule {
     @Singleton
     fun provideService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
+    @Provides
+    @Singleton
+    fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
 }

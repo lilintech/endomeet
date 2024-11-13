@@ -40,16 +40,14 @@ class ImageAnalysisRepositoryImpl @Inject constructor(
             when {
                 response.isSuccessful -> {
                     response.body()?.let { apiResponse ->
-
                         try {
-                           val analysisResult = apiResponse.results
+                            val analysisResult = apiResponse.results
                             emit(Resource.Success(analysisResult))
                         } catch (e: SerializationException) {
                             emit(Resource.Error("Failed to parse analysis result: ${e.message}"))
                         }
                     } ?: emit(Resource.Error("Response body is null"))
                 }
-
                 else -> {
                     emit(
                         Resource.Error(
